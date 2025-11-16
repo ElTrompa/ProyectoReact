@@ -1,10 +1,16 @@
-// TODO: Componente que recibe lista de todos y callbacks
-// Recorre y renderiza TodoItem
+import TodoItem from './TodoItem';
 
 export default function TodoList({ items, onToggle, onDelete }) {
   return (
     <ul>
-      {/* Mapear los todos aquí */}
+      {items.map(todo => (
+        <TodoItem
+          key={todo.id}
+          todo={todo}
+          onToggle={onToggle}
+          onDelete={onDelete}
+        />
+      ))}
     </ul>
   );
 }

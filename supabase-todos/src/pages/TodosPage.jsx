@@ -1,13 +1,20 @@
-// TODO: Importar AddTodo, TodoList y useTodos
+import AddTodo from '../components/AddTodo';
+import TodoList from '../components/TodoList';
+import { useTodos } from '../hooks/useTodos';
 
 export default function TodosPage() {
-  // TODO: Usar useTodos()
-  // TODO: Mostrar input, lista, loading, etc.
+  const { todos, loading, error, create, toggle, remove } = useTodos();
+
   return (
     <main>
       <h1>To-Do App</h1>
-      {/* Componente AddTodo */}
-      {/* Componente TodoList */}
+
+      <AddTodo onAdd={create} />
+
+      {loading && <p>Cargando...</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+
+      <TodoList items={todos} onToggle={toggle} onDelete={remove} />
     </main>
   );
 }

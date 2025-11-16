@@ -1,10 +1,22 @@
-// TODO: Componente con un input y botón "Añadir"
-// Recibe por props onAdd(text)
+import { useState } from 'react';
 
 export default function AddTodo({ onAdd }) {
+  const [text, setText] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!text.trim()) return;
+    onAdd(text);
+    setText('');
+  };
+
   return (
-    <form>
-      <input placeholder="Nueva tarea..." />
+    <form onSubmit={handleSubmit}>
+      <input
+        placeholder="Nueva tarea..."
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
       <button type="submit">Añadir</button>
     </form>
   );
