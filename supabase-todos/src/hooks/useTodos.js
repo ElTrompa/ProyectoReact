@@ -5,22 +5,24 @@ export function useTodos() {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [orderBy, setOrderBy] = useState('created_at');
+  const [ascending, setAscending] = useState(false);
 
   const load = useCallback(async () => {
     try {
       setLoading(true);
-      const data = await getTodos();
+      const data = await getTodos(orderBy, ascending);
       setTodos(data);
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [orderBy, ascending]);
 
-  const create = async (text) => {
+  const create = async (text, importance = 'media') => {
     try {
-      const newTodo = await addTodo(text);
+      const newTodo = await addTodo(text, importance);
       setTodos(prev => [newTodo, ...prev]);
     } catch (err) {
       setError(err.message);
@@ -51,5 +53,5 @@ export function useTodos() {
     load();
   }, [load]);
 
-  return { todos, loading, error, create, toggle, remove };
+  return { todos, loading, error, create, toggle, remove, setOrderBy, setAscending };
 }

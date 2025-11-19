@@ -9,6 +9,7 @@ export default function TodoItem({ todo, onToggle, onDelete }) {
       <span style={{ textDecoration: todo.done ? 'line-through' : 'none' }}>
         {todo.text}
       </span>
+      <span className="item-meta">{todo.importance ? `Importancia: ${todo.importance}` : ''}</span>
       <button onClick={() => onDelete(todo.id)}>Eliminar</button>
     </li>
   );
